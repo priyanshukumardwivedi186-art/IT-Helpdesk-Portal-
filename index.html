@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A responsive IT Helpdesk Ticket Management System portfolio project." />
+  <title>HelpDesk — IT Support Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">H</span><span>help<span class="brand-light">desk</span><small>IT SUPPORT PORTAL</small></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="dashboard"><span>▦</span> Dashboard</button>
+      <button class="nav-item" data-view="tickets"><span>▤</span> All tickets <span class="nav-count" id="navTicketCount">0</span></button>
+      <button class="nav-item" data-view="knowledge"><span>◇</span> Quick guides</button>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✦</div><strong>Need a hand?</strong><p>Check the quick guides for common IT fixes.</p><button id="openGuides">Explore guides ↗</button></div>
+        <div class="profile"><div class="avatar">PD</div><div><strong>Support Admin</strong><small>IT Support Team</small></div><span class="online-dot"></span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbCurrent">Dashboard</strong></div>
+        <div class="top-actions"><span class="today" id="todayLabel"></span><button class="icon-button" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">◐</button><button class="primary-button" id="newTicketTop">＋ New ticket</button></div>
+      </header>
+
+      <section class="view active-view" id="dashboardView">
+        <div class="welcome-row"><div><div class="eyebrow"><span class="pulse"></span> SUPPORT OVERVIEW</div><h1>Good day, Admin <span class="wave">✦</span></h1><p class="subheading">Here's what's happening with your IT support desk.</p></div><div class="welcome-badge"><span>●</span> System operational</div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total tickets</span><span class="stat-icon purple">▤</span></div><div class="stat-number" id="totalStat">0</div><div class="stat-foot">All support requests</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Open tickets</span><span class="stat-icon blue">◷</span></div><div class="stat-number" id="openStat">0</div><div class="stat-foot"><span class="tiny-dot blue-dot"></span> Awaiting resolution</div></article>
+          <article class="stat-card"><div class="stat-top"><span>In progress</span><span class="stat-icon orange">↻</span></div><div class="stat-number" id="progressStat">0</div><div class="stat-foot">Currently being handled</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Resolved</span><span class="stat-icon green">✓</span></div><div class="stat-number" id="resolvedStat">0</div><div class="stat-foot">Successfully completed</div></article>
+        </div>
+        <div class="content-grid">
+          <section class="panel tickets-panel"><div class="panel-heading"><div><h2>Recent tickets</h2><p>Track and manage recent requests</p></div><button class="text-button" id="viewAll">View all ↗</button></div><div class="ticket-table-wrap"><table><thead><tr><th>Ticket</th><th>Requester</th><th>Category</th><th>Priority</th><th>Status</th></tr></thead><tbody id="recentTickets"></tbody></table><div class="empty-state hidden" id="recentEmpty"><span>▤</span><strong>No tickets yet</strong><p>Create your first support ticket to get started.</p><button class="primary-button" id="emptyNewTicket">＋ Create ticket</button></div></div></section>
+          <section class="panel activity-panel"><div class="panel-heading"><div><h2>Support snapshot</h2><p>Ticket status breakdown</p></div><span class="mini-menu">•••</span></div><div class="donut-wrap"><div class="donut" id="donutChart"><div class="donut-center"><strong id="donutTotal">0</strong><span>tickets</span></div></div></div><div class="legend"><div><span class="legend-dot dot-open"></span>Open <strong id="legendOpen">0</strong></div><div><span class="legend-dot dot-progress"></span>In progress <strong id="legendProgress">0</strong></div><div><span class="legend-dot dot-resolved"></span>Resolved <strong id="legendResolved">0</strong></div></div><div class="tip-box"><span>✦</span><div><strong>Support tip</strong><p>Clear ticket descriptions help the team resolve issues faster.</p></div></div></section>
+        </div>
+        <section class="panel categories-panel"><div class="panel-heading"><div><h2>Common request categories</h2><p>Organize requests by the kind of help needed</p></div></div><div class="category-grid"><div class="category-tile"><span class="category-icon hardware">▣</span><div><strong>Hardware</strong><small>Devices & peripherals</small></div><span class="category-count" id="hardwareCount">0</span></div><div class="category-tile"><span class="category-icon software">▧</span><div><strong>Software</strong><small>Apps & installation</small></div><span class="category-count" id="softwareCount">0</span></div><div class="category-tile"><span class="category-icon network">⌁</span><div><strong>Network</strong><small>Wi-Fi & connectivity</small></div><span class="category-count" id="networkCount">0</span></div><div class="category-tile"><span class="category-icon account">♙</span><div><strong>Account access</strong><small>Login & permissions</small></div><span class="category-count" id="accountCount">0</span></div></div></section>
+      </section>
+
+      <section class="view" id="ticketsView">
+        <div class="page-heading"><div><div class="eyebrow">SUPPORT WORKSPACE</div><h1>All tickets</h1><p class="subheading">Review requests, update their status, and keep work moving.</p></div><button class="primary-button" id="newTicketList">＋ New ticket</button></div>
+        <div class="panel all-tickets-panel"><div class="filters"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search tickets, names, or issues..." /></label><select id="statusFilter" aria-label="Filter by status"><option value="All">All statuses</option><option>Open</option><option>In Progress</option><option>Resolved</option></select><select id="categoryFilter" aria-label="Filter by category"><option value="All">All categories</option><option>Hardware</option><option>Software</option><option>Network</option><option>Account Access</option><option>Other</option></select></div><div class="ticket-table-wrap"><table><thead><tr><th>Ticket / Issue</th><th>Requester</th><th>Category</th><th>Priority</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody id="allTickets"></tbody></table><div class="empty-state hidden" id="allEmpty"><span>⌕</span><strong>No matching tickets</strong><p>Try changing your search or filters.</p></div></div><div class="table-footer" id="tableFooter"></div></div>
+      </section>
+
+      <section class="view" id="knowledgeView">
+        <div class="page-heading"><div><div class="eyebrow">SELF-SERVICE</div><h1>Quick guides</h1><p class="subheading">Simple troubleshooting steps for common IT problems.</p></div></div>
+        <div class="guides-grid">
+          <article class="guide-card"><div class="guide-icon wifi">⌁</div><span class="guide-tag">NETWORK</span><h3>Wi-Fi not connecting</h3><ol><li>Turn Wi-Fi off, wait 10 seconds, then turn it on.</li><li>Check that airplane mode is disabled.</li><li>Restart your router or device if possible.</li><li>If it still fails, create a Network ticket.</li></ol><button class="guide-ticket" data-category="Network">Report this issue ↗</button></article>
+          <article class="guide-card"><div class="guide-icon laptop">▣</div><span class="guide-tag">HARDWARE</span><h3>Laptop running slowly</h3><ol><li>Close apps and browser tabs you don't need.</li><li>Restart your laptop to clear temporary issues.</li><li>Check available storage space.</li><li>Raise a Hardware ticket if the issue continues.</li></ol><button class="guide-ticket" data-category="Hardware">Report this issue ↗</button></article>
+          <article class="guide-card"><div class="guide-icon lock">♙</div><span class="guide-tag">ACCOUNT ACCESS</span><h3>Can't sign in</h3><ol><li>Check your username and keyboard layout.</li><li>Confirm Caps Lock is turned off.</li><li>Use the official password reset process.</li><li>Never share your password in a ticket.</li></ol><button class="guide-ticket" data-category="Account Access">Report this issue ↗</button></article>
+          <article class="guide-card"><div class="guide-icon apps">▧</div><span class="guide-tag">SOFTWARE</span><h3>App won't open</h3><ol><li>Close the app completely and reopen it.</li><li>Restart your computer.</li><li>Check whether updates are available.</li><li>Create a Software ticket with the error message.</li></ol><button class="guide-ticket" data-category="Software">Report this issue ↗</button></article>
+        </div>
+      </section>
+      <footer class="app-footer">HelpDesk Portal <span>•</span> Portfolio project by <strong>Priyanshu Kumar Dwivedi</strong> <span class="footer-right">Built with HTML, CSS & JavaScript</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="ticketModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <form class="modal" id="ticketForm"><div class="modal-head"><div><div class="eyebrow">SUPPORT REQUEST</div><h2 id="modalTitle">Create a new ticket</h2><p>Tell us what's happening and we'll take it from there.</p></div><button type="button" class="close-button" id="closeModal" aria-label="Close">×</button></div>
+      <div class="form-grid"><label>Requester name <span>*</span><input name="requester" required maxlength="60" placeholder="e.g. Priyanshu Dwivedi" /></label><label>Email address <span>*</span><input name="email" type="email" required maxlength="100" placeholder="you@example.com" /></label><label class="full-field">Issue title <span>*</span><input name="title" required maxlength="100" placeholder="Briefly describe the issue" /></label><label>Category <span>*</span><select name="category" id="newCategory" required><option>Hardware</option><option>Software</option><option>Network</option><option>Account Access</option><option>Other</option></select></label><label>Priority <span>*</span><select name="priority" required><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select></label><label class="full-field">Description <span>*</span><textarea name="description" required minlength="8" maxlength="1000" rows="4" placeholder="What happened? What have you tried so far?"></textarea></label></div><div class="form-note">ⓘ Demo project: tickets are saved in this browser only.</div><div class="modal-actions"><button type="button" class="secondary-button" id="cancelModal">Cancel</button><button type="submit" class="primary-button">Create ticket <span>↗</span></button></div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
